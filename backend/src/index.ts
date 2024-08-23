@@ -1,25 +1,22 @@
 import express from "express";
 const app = express();
 import { createServer } from "http";
-import { Server } from "socket.io";
+import SocketsService from "./services/sockets.js";
+
 const httpServer = createServer(app);
-const io = new Server(httpServer);
 
-io.on("connection", (socket) => {
-	console.log("a user connected");
-	socket.on("disconnect", () => {
-		console.log("user disconnected");
+const init = async () => {
+	const sockets = new SocketsService();
+
+	sockets.io.attach(httpServer);
+
+	
+	httpServer.listen(3000, () => {
+		console.log("Server running on port 3000");
 	});
 
-	socket.on("chat message", (msg) => {
-		io.emit("chat message", msg);
-	});
-});
 
-app.get("/", (req, res) => {
-	res.json({ message: "Hello World" });
-});
+	sockets.initListeners();
+};
 
-httpServer.listen(3000, () => {
-	console.log("Server is running on port 3000");
-});
+init();

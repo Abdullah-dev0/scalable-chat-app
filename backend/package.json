@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "start": "node dist/index.js",
+    "build": "tsc -b"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +17,7 @@
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
-    "@types/express": "^4.17.21"
+    "@types/express": "^4.17.21",
+    "tsc-watch": "^6.2.0"
   }
 }
