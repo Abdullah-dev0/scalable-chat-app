@@ -14,10 +14,14 @@
   "description": "",
   "dependencies": {
     "express": "^4.19.2",
+    "ioredis": "^5.4.1",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {
+    "@prisma/client": "^5.18.0",
     "@types/express": "^4.17.21",
+    "@types/node": "^22.5.0",
+    "prisma": "^5.18.0",
     "tsc-watch": "^6.2.0"
   }
 }

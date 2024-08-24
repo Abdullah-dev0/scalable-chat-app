@@ -1,4 +1,15 @@
 import { Server } from "socket.io";
+import Redis from "ioredis";
+
+const pub = new Redis({
+	host: "localhost",
+	port: 6379,
+});
+
+const sub = new Redis({
+	host: "localhost",
+	port: 6379,
+});
 
 class SocketsService {
 	private _io: Server;
@@ -11,6 +22,7 @@ class SocketsService {
 				origin: "*",
 			},
 		});
+		sub.subscribe("MESSAGES");
 	}
 
 	get io() {
@@ -25,7 +37,17 @@ class SocketsService {
 
 			socket.on("new:message", async ({ message }: { message: string }) => {
 				console.log("new message recived ", message);
+				//we need to publish this message to all connected clients using redis
+
+				await pub.publish("MESSAGES", JSON.stringify({ message }));
 			});
+		});
+
+		sub.on("message", async (channel, message) => {
+			console.log("message recived from redis", message);
+			if (channel === "MESSAGES") {
+				io.emit("message", message);
+			}
 		});
 	}
 }
