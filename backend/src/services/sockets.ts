@@ -2,15 +2,10 @@ import { Server } from "socket.io";
 import Redis from "ioredis";
 import { produceMessage } from "./kafka";
 
-const pub = new Redis({
-	host: "localhost",
-	port: 6379,
-});
+const pub = new Redis(process.env.REDIS_URL as string);
 
-const sub = new Redis({
-	host: "localhost",
-	port: 6379,
-});
+const sub = new Redis(process.env.REDIS_URL as string);
+
 
 class SocketsService {
 	private _io: Server;

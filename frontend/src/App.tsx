@@ -9,6 +9,7 @@ const App = () => {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		if (!message) return;
 		sendMessage(message);
 		setMessage(""); // Clear the input after sending
 	};
@@ -24,7 +25,7 @@ const App = () => {
 		};
 
 		getMessages();
-	}, [messages]);
+	}, [allMessages]);
 
 	return (
 		<div>

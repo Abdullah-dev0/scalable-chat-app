@@ -1,9 +1,15 @@
-import { Kafka, Producer } from "kafkajs";
+import { Kafka, logLevel, Producer } from "kafkajs";
 import { prisma } from "../services/prismaClient";
 
 const kafka = new Kafka({
-	clientId: "my-app",
-	brokers: ["localhost:9092"],
+	brokers: [process.env.KAFKA_BROKER as string],
+	ssl: true,
+	sasl: {
+		mechanism: "scram-sha-256",
+		username: process.env.KAFKA_USERNAME as string,
+		password: process.env.KAFKA_PASSWORD as string,
+	},
+	logLevel: logLevel.ERROR,
 });
 
 let producer: null | Producer;
