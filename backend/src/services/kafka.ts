@@ -1,6 +1,8 @@
 import { Kafka, logLevel, Producer } from "kafkajs";
 import { prisma } from "../services/prismaClient";
 
+require("dotenv").config();
+
 const kafka = new Kafka({
 	brokers: [process.env.KAFKA_BROKER as string],
 	ssl: true,

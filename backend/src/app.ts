@@ -22,8 +22,8 @@ export const init = async () => {
 
 	sockets.io.attach(httpServer);
 
-	httpServer.listen(3000, () => {
-		console.log("Server is running on port 3000");
+	httpServer.listen(3001, () => {
+		console.log("Server is running on port 3001");
 	});
 
 	app.get("/", (req, res) => {

@@ -2,10 +2,11 @@ import { Server } from "socket.io";
 import Redis from "ioredis";
 import { produceMessage } from "./kafka";
 
+require("dotenv").config();
+
 const pub = new Redis(process.env.REDIS_URL as string);
 
 const sub = new Redis(process.env.REDIS_URL as string);
-
 
 class SocketsService {
 	private _io: Server;

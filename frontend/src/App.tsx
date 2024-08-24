@@ -17,7 +17,7 @@ const App = () => {
 	useEffect(() => {
 		const getMessages = async () => {
 			try {
-				const { data } = await axios.get("http://localhost:3000/api/getmessages");
+				const { data } = await axios.get("http://13.60.234.72/api/getmessages");
 				setAllMessages(data);
 			} catch (error) {
 				console.error("Error fetching messages:", error);
