@@ -13,8 +13,10 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "ioredis": "^5.4.1",
+    "kafkajs": "^2.2.4",
     "socket.io": "^4.7.5"
   },
   "devDependencies": {

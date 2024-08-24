@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import Redis from "ioredis";
+import { produceMessage } from "./kafka";
 
 const pub = new Redis({
 	host: "localhost",
@@ -37,8 +38,6 @@ class SocketsService {
 
 			socket.on("new:message", async ({ message }: { message: string }) => {
 				console.log("new message recived ", message);
-				//we need to publish this message to all connected clients using redis
-
 				await pub.publish("MESSAGES", JSON.stringify({ message }));
 			});
 		});
@@ -47,6 +46,8 @@ class SocketsService {
 			console.log("message recived from redis", message);
 			if (channel === "MESSAGES") {
 				io.emit("message", message);
+				await produceMessage(message);
+				console.log("Message Produced to Kafka Broker");
 			}
 		});
 	}
